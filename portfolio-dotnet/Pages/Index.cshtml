@@ -1,0 +1,109 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Hi, I'm <span class="highlight">@Model.Name</span></h1>
+            <h2 class="hero-subtitle">@Model.Title</h2>
+            <p class="hero-bio">@Model.Bio</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <p>
+                I'm a passionate developer with expertise in building scalable web applications 
+                using modern technologies. I love solving complex problems and creating elegant 
+                solutions that make a difference.
+            </p>
+            <p>
+                With a strong foundation in .NET development and a keen interest in emerging 
+                technologies, I continuously strive to improve my skills and deliver high-quality 
+                software solutions.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="section bg-light">
+    <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            @foreach (var skill in Model.Skills)
+            {
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">@skill.Name</span>
+                        <span class="skill-percent">@skill.Level%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: @skill.Level%"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="project-card">
+                    <h3 class="project-title">@project.Name</h3>
+                    <p class="project-description">@project.Description</p>
+                    <div class="project-tech">
+                        @foreach (var tech in project.Technologies)
+                        {
+                            <span class="tech-tag">@tech</span>
+                        }
+                    </div>
+                    <a href="@project.Link" class="project-link">View Project →</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section bg-light">
+    <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p class="contact-text">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            </p>
+            <div class="contact-methods">
+                <a href="mailto:contact@workwithnitish.dev" class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>contact@workwithnitish.dev</span>
+                </a>
+                <a href="https://github.com/nitish" class="contact-item">
+                    <span class="contact-icon">💻</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/nitish" class="contact-item">
+                    <span class="contact-icon">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
