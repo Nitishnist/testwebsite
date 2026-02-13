@@ -1,28 +1,39 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// VERY IMPORTANT — forces Kestrel to listen on Railway port
-builder.WebHost.ConfigureKestrel(serverOptions =>
+// ✅ Force Kestrel to use Railway's port
+builder.WebHost.ConfigureKestrel(options =>
 {
     var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-    serverOptions.ListenAnyIP(int.Parse(port));
+    options.ListenAnyIP(int.Parse(port));
 });
 
+// Add Razor Pages
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+// Production settings
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
-// ⚠️ REMOVE HTTPS REDIRECTION (important for Railway)
-//// app.UseHttpsRedirection();
+// ⚠️ DO NOT enable HTTPS redirection on Railway
+// app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseRouting();
+
 app.UseAuthorization();
+
+// ✅ VERY IMPORTANT — Default route
+app.MapGet("/", async context =>
+{
+    context.Response.Redirect("/Index");
+});
+
+// Map Razor pages
 app.MapRazorPages();
 
 app.Run();
